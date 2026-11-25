@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   ClipboardList,
   Activity,
@@ -15,12 +16,13 @@ const workflowSteps = [
     iconColor: "text-cyan-200",
     gradient: "from-cyan-600 to-cyan-700",
     hoverText: "hover:text-cyan-700",
-    href: "#anc",
+    href: "/pengkajian",
+    resultHref: "/pengkajian/hasil",
     cta: "Form Pengkajian",
     items: [
       "Identitas Pasien & Suami",
       "Riwayat Kesehatan & Obstetri (P-A)",
-      "Riwayat Persalinan (Kala I-IV, APGAR)",
+      "Riwayat Persalinan (Kala I-III, APGAR)",
       "Pola Kebiasaan & Pemeriksaan Fisik",
     ],
   },
@@ -30,12 +32,13 @@ const workflowSteps = [
     iconColor: "text-sky-200",
     gradient: "from-sky-600 to-sky-700",
     hoverText: "hover:text-sky-700",
-    href: "#analisa",
-    cta: "Detail Analisa",
+    href: "/analisa-data",
+    resultHref: "/analisa-data/hasil",
+    cta: "Form Analisa Data",
     items: [
-      "Data Subjektif & Objektif (DS/DO)",
-      "Identifikasi Masalah",
-      "Penentuan Etiologi",
+      "Data Fokus (Cp.1.A): DS & DO",
+      "Analisa Data (Cp.1.B)",
+      "Identifikasi Masalah & Etiologi",
     ],
   },
   {
@@ -44,12 +47,13 @@ const workflowSteps = [
     iconColor: "text-teal-200",
     gradient: "from-teal-600 to-teal-700",
     hoverText: "hover:text-teal-700",
-    href: "#diagnosa",
-    cta: "Detail Diagnosa",
+    href: "/diagnosa",
+    resultHref: "/diagnosa/hasil",
+    cta: "Form Diagnosa",
     items: [
       "Diagnosa Keperawatan (P&E)",
       "Tanggal Ditemukan & Teratasi",
-      "Referensi SDKI/SLKI",
+      "Paraf & Nama Jelas",
     ],
   },
   {
@@ -58,11 +62,12 @@ const workflowSteps = [
     iconColor: "text-blue-300",
     gradient: "from-blue-700 to-blue-800",
     hoverText: "hover:text-blue-800",
-    href: "#rencana",
-    cta: "Detail Rencana",
+    href: "/intervensi",
+    resultHref: "/intervensi/hasil",
+    cta: "Form Rencana",
     items: [
+      "Diagnosa Keperawatan (PES)",
       "Tujuan & Kriteria Hasil (SLKI)",
-      "Rencana Tindakan (SIKI)",
       "Intervensi Independen & Interdependen",
     ],
   },
@@ -72,11 +77,12 @@ const workflowSteps = [
     iconColor: "text-sky-300",
     gradient: "from-sky-800 to-indigo-900",
     hoverText: "hover:text-sky-900",
-    href: "#implementasi",
-    cta: "Detail Tindakan",
+    href: "/implementasi",
+    resultHref: "/implementasi/hasil",
+    cta: "Form Tindakan",
     items: [
       "Catatan Keperawatan Harian",
-      "Tindakan & Hasil",
+      "Tindakan Keperawatan & Hasil",
       "Paraf & Nama Jelas",
     ],
   },
@@ -86,8 +92,9 @@ const workflowSteps = [
     iconColor: "text-cyan-300",
     gradient: "from-cyan-800 to-slate-800",
     hoverText: "hover:text-cyan-800",
-    href: "#evaluasi",
-    cta: "Detail Evaluasi",
+    href: "/evaluasi",
+    resultHref: "/evaluasi/hasil",
+    cta: "Form Evaluasi",
     items: [
       "Subjektif, Objektif, Analisis, Planning",
       "Evaluasi Hasil Mengacu Tujuan",
@@ -105,7 +112,7 @@ export default function AskepWorkflow() {
         </h2>
         <p className="text-slate-500 text-sm mt-2 max-w-2xl mx-auto">
           Proses Asuhan Keperawatan Maternitas terstruktur sesuai standar format
-          dokumentasi klinis (Pasca Partum).
+          dokumentasi klinis (Ibu Pasca Partum).
         </p>
       </div>
 
@@ -128,12 +135,21 @@ export default function AskepWorkflow() {
                   ))}
                 </ul>
               </div>
-              <a
-                href={step.href}
-                className={`inline-block w-max px-5 py-2 bg-white/10 border border-white/30 rounded text-xs font-semibold uppercase tracking-wider hover:bg-white ${step.hoverText} transition`}
-              >
-                {step.cta}
-              </a>
+
+              <div className="flex flex-wrap items-center gap-2.5">
+                <Link
+                  href={step.href}
+                  className={`inline-block px-5 py-2 bg-white/15 border border-white/30 rounded text-xs font-semibold uppercase tracking-wider hover:bg-white ${step.hoverText} transition`}
+                >
+                  {step.cta}
+                </Link>
+                <Link
+                  href={step.resultHref}
+                  className="inline-block px-3.5 py-2 bg-black/15 hover:bg-black/25 rounded text-xs font-medium text-white/90 hover:text-white transition"
+                >
+                  Hasil
+                </Link>
+              </div>
             </div>
           );
         })}
